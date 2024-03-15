@@ -23,8 +23,8 @@ export const OTPScreen = ({ navigation, route, checkPhoneExist }) => {
   const [code4, setCode4] = useState("");
   const [code5, setCode5] = useState("");
   const [count, setCount] = useState(60);
+  const [otp, setOtp] = useState(route.params.otp);
   const phone = route.params.phone;
-  const otp = route.params.otp;
   const user = route.params.checkPhoneExist;
   useEffect(() => {
     const interval = setInterval(() => {
@@ -61,6 +61,10 @@ export const OTPScreen = ({ navigation, route, checkPhoneExist }) => {
     }
   };
   getUser();
+  const handleAgainOTP = () => {
+    setCount(60);
+    setOtp(Math.floor(10000 + Math.random() * 90000).toString());
+  };
   return (
     <View>
       <View
@@ -184,7 +188,7 @@ export const OTPScreen = ({ navigation, route, checkPhoneExist }) => {
             <Text>Bạn chưa nhận được mã ? </Text>
             <Text
               style={{ color: "blue", fontWeight: "bold" }}
-              onPress={() => setCount(60)}
+              onPress={handleAgainOTP}
             >
               Gửi lại
             </Text>
